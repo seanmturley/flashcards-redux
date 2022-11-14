@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import { addQuizId } from "../topics/topicsSlice";
+
 const quizzesSlice = createSlice({
   name: "quizzes",
   initialState: {
@@ -13,6 +15,13 @@ const quizzesSlice = createSlice({
     }
   }
 });
+
+export const addQuizToTopic = (quiz) => {
+  return (dispatch, getState) => {
+    dispatch(quizzesSlice.actions.addQuiz(quiz));
+    dispatch(addQuizId({ quizId: quiz.id, topicId: quiz.topicId }));
+  };
+};
 
 export const selectQuizzes = (state) => state.quizzes.quizzes;
 
